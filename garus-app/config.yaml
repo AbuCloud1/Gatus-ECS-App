@@ -1,0 +1,16 @@
+# Gatus configuration
+# The application will run on port 8080 by default
+
+defaults: &check_defaults
+  interval: 60s
+  conditions:
+    - "[STATUS] == 200"
+
+endpoints:
+  - name: Google
+    url: "https://www.google.com"
+    <<: *check_defaults
+
+  - name: GitHub
+    url: "https://www.github.com"
+    <<: *check_defaults
