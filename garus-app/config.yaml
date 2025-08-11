@@ -14,3 +14,99 @@ endpoints:
   - name: GitHub
     url: "https://www.github.com"
     <<: *check_defaults
+
+  - name: Skool
+    url: "https://www.skool.com"
+    <<: *check_defaults
+
+  - name: Instagram
+    url: "https://www.instagram.com"
+    <<: *check_defaults
+
+  - name: Twitter
+    url: "https://www.twitter.com"
+    <<: *check_defaults
+
+  - name: Facebook
+    url: "https://www.facebook.com"
+    <<: *check_defaults
+
+  - name: Reddit
+    url: "https://www.reddit.com"
+    <<: *check_defaults
+
+  - name: YouTube
+    url: "https://www.youtube.com"
+    <<: *check_defaults
+
+  - name: Twitch
+    url: "https://www.twitch.tv"
+    <<: *check_defaults
+
+  - name: TikTok
+    url: "https://www.tiktok.com"
+    <<: *check_defaults
+
+  - name: Discord
+    url: "https://www.discord.com"
+    <<: *check_defaults
+
+  - name: Steam
+    url: "https://www.steam.com"
+    <<: *check_defaults
+
+  - name: LinkedIn
+    url: "https://www.linkedin.com"
+    <<: *check_defaults
+
+  - name: Netflix
+    url: "https://www.netflix.com"
+    <<: *check_defaults
+
+  - name: Amazon
+    url: "https://www.amazon.com"
+    <<: *check_defaults
+
+  - name: Microsoft
+    url: "https://www.microsoft.com"
+    <<: *check_defaults
+
+  - name: Apple
+    url: "https://www.apple.com"
+    <<: *check_defaults
+
+  - name: Stack Overflow
+    url: "https://stackoverflow.com"
+    <<: *check_defaults
+
+  - name: Medium
+    url: "https://medium.com"
+    <<: *check_defaults
+
+  - name: Notion
+    url: "https://www.notion.so"
+    <<: *check_defaults
+
+  - name: Zoom
+    url: "https://zoom.us"
+    <<: *check_defaults
+
+  - name: Slack
+    url: "https://slack.com"
+    <<: *check_defaults
+
+  - name: Trello
+    url: "https://trello.com"
+    <<: *check_defaults
+
+  - name: Spotify
+    url: "https://open.spotify.com"
+    <<: *check_defaults
+
+  - name: Dropbox
+    url: "https://www.dropbox.com"
+    <<: *check_defaults
+
+  - name: GitHub Pages
+    url: "https://pages.github.com"
+    <<: *check_defaults
