@@ -2,6 +2,8 @@
 
 A production-ready Gatus health monitoring application deployed on AWS using Terraform, ECS Fargate, and Application Load Balancer.
 
+<!-- CI/CD Test Comment -->
+
 ## 🌟 Features
 
 - **Gatus Health Dashboard**: Real-time monitoring of endpoint health
