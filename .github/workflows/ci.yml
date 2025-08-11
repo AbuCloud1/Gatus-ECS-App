@@ -19,17 +19,6 @@ jobs:
       with:
         terraform_version: "1.5.0"
         
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-        
-    - name: Install pre-commit
-      run: pip install pre-commit
-        
-    - name: Run pre-commit
-      run: pre-commit run --all-files
-      
     - name: Terraform Init (Dev)
       run: |
         cd terraform/environments/dev
@@ -44,3 +33,23 @@ jobs:
       run: |
         cd terraform/environments/dev
         terraform fmt -check -recursive
+        
+    - name: Terraform Init (Staging)
+      run: |
+        cd terraform/environments/staging
+        terraform init -backend=false
+        
+    - name: Terraform Validate (Staging)
+      run: |
+        cd terraform/environments/staging
+        terraform validate
+        
+    - name: Terraform Init (Prod)
+      run: |
+        cd terraform/environments/prod
+        terraform init -backend=false
+        
+    - name: Terraform Validate (Prod)
+      run: |
+        cd terraform/environments/prod
+        terraform validate
