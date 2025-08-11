@@ -19,6 +19,12 @@ jobs:
       with:
         terraform_version: "1.5.0"
         
+    - name: Install Checkov
+      run: pip install checkov
+        
+    - name: Run Checkov Security Scan
+      run: checkov --framework terraform --directory terraform/
+        
     - name: Validate Dev Environment
       run: |
         cd terraform/environments/dev
