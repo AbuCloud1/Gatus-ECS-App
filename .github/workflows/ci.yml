@@ -30,17 +30,17 @@ jobs:
     - name: Run pre-commit
       run: pre-commit run --all-files
       
-    - name: Terraform Init
+    - name: Terraform Init (Dev)
       run: |
         cd terraform/environments/dev
         terraform init -backend=false
         
-    - name: Terraform Validate
+    - name: Terraform Validate (Dev)
       run: |
         cd terraform/environments/dev
         terraform validate
         
-    - name: Terraform Format Check
+    - name: Terraform Format Check (Dev)
       run: |
         cd terraform/environments/dev
         terraform fmt -check -recursive

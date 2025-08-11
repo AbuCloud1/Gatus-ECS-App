@@ -50,6 +50,59 @@ variable "vpc_cidr_block" {
   type        = string
 }
 
+variable "domain_name" {
+  description = "Domain name for the hosted zone"
+  type        = string
+}
+
+variable "record_name" {
+  description = "Record name to create (relative or FQDN)"
+  type        = string
+}
+
+variable "family" {
+  description = "Family name for the ECS task definition"
+  type        = string
+}
+
+variable "service_name" {
+  description = "Name of the ECS service"
+  type        = string
+}
+
+variable "container_image" {
+  description = "Container image to use"
+  type        = string
+}
+
+variable "container_name" {
+  description = "Name of the container"
+  type        = string
+}
+
+variable "container_port" {
+  description = "Port the container listens on"
+  type        = number
+}
+
+variable "desired_count" {
+  description = "Desired number of tasks"
+  type        = number
+  default     = 2
+}
+
+variable "cpu" {
+  description = "CPU units for the task"
+  type        = number
+  default     = 256
+}
+
+variable "memory" {
+  description = "Memory for the task in MiB"
+  type        = number
+  default     = 512
+}
+
 variable "sg_ingress_ports" {
   type = list(object({
     description = string
