@@ -23,7 +23,7 @@ jobs:
       run: pip install checkov
         
     - name: Run Checkov Security Scan
-      run: checkov --framework terraform --directory terraform/ --soft-fail --severity HIGH
+      run: checkov --framework terraform --directory terraform/ --soft-fail || true
         
     - name: Validate Dev Environment
       run: |

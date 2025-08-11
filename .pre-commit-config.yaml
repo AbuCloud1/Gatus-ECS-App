@@ -15,4 +15,4 @@ repos:
     rev: v3.1.0
     hooks:
       - id: checkov
-        args: ["--framework", "terraform", "--soft-fail", "--severity-threshold", "HIGH"]
+        args: ["--framework", "terraform", "--soft-fail"]
