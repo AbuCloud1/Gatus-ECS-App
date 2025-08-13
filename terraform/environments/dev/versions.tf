@@ -9,9 +9,11 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "devops-proj-s3-backend"
-    key    = "dev_statefile/terraform.tfstate"
-    region = "eu-west-1"
+    bucket         = "abubakker-gatus-backend"
+    key            = "dev_statefile/terraform.tfstate"
+    region         = "eu-west-1"
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
   }
 }
 

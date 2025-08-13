@@ -58,5 +58,10 @@ module "route53module" {
   environment  = var.environment
 }
 
+module "dynamodbmodule" {
+  source      = "../../modules/dynamodb"
+  environment = var.environment
+}
+
 
 
