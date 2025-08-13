@@ -3,8 +3,8 @@
 
 # Customize the dashboard appearance
 ui:
-  title: "Abubakkers Status Dashboard"
-  header: "Abubakkers Real-time ECS Observability and Health Monitoring"
+  title: "Abubakers Status Dashboard"
+  header: "Abubakers Real-time ECS Observability and Health Monitoring"
   accent-color: "#3B82F6"  # Blue accent color
   primary-color: "#1F2937"  # Dark gray primary
   secondary-color: "#6B7280"  # Medium gray secondary
