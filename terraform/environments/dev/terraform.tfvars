@@ -15,7 +15,7 @@ family      = "dev-family"
 domain_name = "easyumrahs.com"               # Your domain from GoDaddy
 record_name = "tm"                           # Creates tm.easyumrahs.com (subdomain)
 
-container_image = "325910233981.dkr.ecr.eu-west-1.amazonaws.com/gatuswebapp:latest"
+container_image = "847025106966.dkr.ecr.eu-west-1.amazonaws.com/gatuswebapp:latest"
 container_name  = "dev-gatuswebapp"
 container_port  = 8080  # Gatus runs on port 8080 by default
 cpu             = 256
