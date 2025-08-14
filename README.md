@@ -7,6 +7,16 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
 ## Architecture
 <img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/6b09267e-5414-42b2-866a-c10f0a4a283f" />
 
+## Tech Stack
+
+- **Application**: [Gatus](https://github.com/TwiN/gatus) which is a health monitoring dashboard
+- **Infrastructure**: Modular Terraform setup with remote state stored in S3 and state locking via DynamoDB
+- **Container**: Docker with ECS Fargate
+- **Load Balancer**: AWS Application Load Balancer with SSL termination
+- **Security**: AWS Certificate Manager, Security Groups, VPC isolation
+- **DNS**: AWS Route53 with custom domain management
+- **Networking**: Multi-AZ VPC with public/private subnet architecture
+
 ### Quick Start
 ```bash
 # Clone repository
@@ -29,15 +39,6 @@ docker tag gatuswebapp:latest your-ecr-repo:latest
 docker push your-ecr-repo:latest
 ```
 
-## Tech Stack
-
-- **Application**: [Gatus](https://github.com/TwiN/gatus) which is a health monitoring dashboard
-- **Infrastructure**: Terraform with modular architecture with S3 backend without DynamoDB state locking
-- **Container**: Docker with ECS Fargate
-- **Load Balancer**: AWS Application Load Balancer with SSL termination
-- **Security**: AWS Certificate Manager, Security Groups, VPC isolation
-- **DNS**: AWS Route53 with custom domain management
-- **Networking**: Multi-AZ VPC with public/private subnet architecture
 
 ## Project Structure
 
