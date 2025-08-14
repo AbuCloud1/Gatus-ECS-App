@@ -17,8 +17,9 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
   - [Security Implementation](#security-implementation)
 - [Environment Strategy](#environment-strategy)
 - [CI/CD & Automation](#cicd--automation)
+- [🐳 Custom Gatus Build](#custom-gatus-build)
 - [Security and Compliance](#security-and-compliance)
-- [Monitoring and Observability](#monitoring-and-observability)
+- [Trade-offs and Design Decisions](#trade-offs-and-design-decisions)
 - [Future Improvements](#future-improvements)
 
 ## Architecture
@@ -136,6 +137,29 @@ gatus-local/
 - **Current State**: Manual deployment with deployment scripts
 - **Target State**: Fully automated CI/CD pipeline
 - **Expected Improvement**: 87% reduction in deployment time (15min → 2min)
+
+## 🐳 Custom Gatus Build
+
+### Build from Source
+Instead of using pre-built Docker images, this project builds Gatus **completely from source code**:
+
+- **`garus-app/source/`** - Complete Gatus Go source code
+- **Custom Dockerfile** - Multi-stage build process
+- **GitHub Actions** - Automated build and deployment pipeline
+- **Full Control** - Modify any part of the application
+
+### Automated Build Pipeline
+- **Triggers**: Push to main, PRs, or manual dispatch
+- **Builds**: Gatus from Go source code
+- **Tags**: `latest` + timestamp for versioning
+- **Deploys**: Automatically pushes to ECR
+- **Tests**: Verifies build and image contents
+
+### Customization Capabilities
+- **Monitoring Logic** - Modify watchdog and alerting
+- **API Endpoints** - Add custom REST endpoints
+- **Frontend UI** - Customize dashboard appearance
+- **Configuration** - Extend monitoring options
 
 ## Security and Compliance
 
