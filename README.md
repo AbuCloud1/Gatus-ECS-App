@@ -4,22 +4,22 @@
 
 A production-ready Gatus health monitoring application deployed on AWS using Terraform, ECS Fargate, and Application Load Balancer.
 
-## 📋 Table of Contents
+## Quick Links
 
-- [🏗️ Architecture](#architecture)
-- [🛠️ Tech Stack](#tech-stack)
-- [🚀 Quick Start](#quick-start)
-- [📁 Project Structure](#project-structure)
-- [🏛️ Infrastructure Components](#infrastructure-components)
-  - [🌐 VPC & Networking](#vpc--networking)
-  - [⚖️ Load Balancer & SSL](#load-balancer--ssl)
-  - [🐳 Container Orchestration](#container-orchestration)
-  - [🔒 Security Implementation](#security-implementation)
-- [🌍 Environment Strategy](#environment-strategy)
-- [🔄 CI/CD & Automation](#cicd--automation)
-- [🔐 Security and Compliance](#security-and-compliance)
-- [📊 Monitoring and Observability](#monitoring-and-observability)
-- [🚀 Future Improvements](#future-improvements)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Infrastructure Components](#infrastructure-components)
+  - [VPC & Networking](#vpc--networking)
+  - [Load Balancer & SSL](#load-balancer--ssl)
+  - [Container Orchestration](#container-orchestration)
+  - [Security Implementation](#security-implementation)
+- [Environment Strategy](#environment-strategy)
+- [CI/CD & Automation](#cicd--automation)
+- [Security and Compliance](#security-and-compliance)
+- [Monitoring and Observability](#monitoring-and-observability)
+- [Future Improvements](#future-improvements)
 
 ## Architecture
 <img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/6b09267e-5414-42b2-866a-c10f0a4a283f" />
