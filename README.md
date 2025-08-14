@@ -3,6 +3,7 @@
 ## What does it do?
 
 A production-ready Gatus health monitoring application deployed on AWS using Terraform, ECS Fargate, and Application Load Balancer.
+<img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/6b09267e-5414-42b2-866a-c10f0a4a283f" />
 
 ## Quick Links
 
@@ -23,7 +24,8 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
 - [Future Improvements](#future-improvements)
 
 ## Architecture
-<img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/6b09267e-5414-42b2-866a-c10f0a4a283f" />
+
+<img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/1067c524-3f89-46d1-a80e-ea9da3725471" />
 
 ## Tech Stack
 
