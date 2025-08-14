@@ -140,13 +140,13 @@ gatus-local/
 
 ## Trade-offs and Design Decisions
 
-### Infrastructure Architecture
+**Infrastructure Architecture**:  
 I went with Multi-AZ for better uptime and DR even though it costs more. Public and private subnets were set up for security, but it did add complexity and extra NAT costs. ECS Fargate was picked to avoid managing servers and speed up delivery, at the cost of losing some low-level control.
 
-### Security and Compliance
+**Security and Compliance**:  
 SSL ends at the load balancer which makes cert management easier but means traffic inside isn’t encrypted. Security Groups are more complex but give tighter network isolation. The VPC runs on a custom CIDR across multiple AZs to keep it production-ready and easy to grow later.
 
-### Operational Considerations
+**Operational Considerations**:  
 Deployments are manual for now to keep oversight over speed. Docker builds are basic to keep things moving quickly, though they’re not yet optimized.
 
 ## Future Improvements
