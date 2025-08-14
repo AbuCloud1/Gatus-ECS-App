@@ -64,22 +64,22 @@ docker push your-ecr-repo:latest
 ```
 gatus-local/
 ├── garus-app/                 # Gatus application source
-│   ├── Dockerfile            # Container configuration
-│   ├── config.yaml           # Gatus monitoring configuration
-│   └── README.md             # Application documentation
+│   ├── Dockerfile            
+│   ├── config.yaml           
+│   └── README.md             
 ├── terraform/                 # Infrastructure as Code
 │   ├── environments/         # Environment-specific configs
-│   │   ├── dev/             # Development environment
-│   │   ├── staging/         # Staging environment
-│   │   └── prod/            # Production environment
+│   │   ├── dev/             
+│   │   ├── staging/         
+│   │   └── prod/           
 │   └── modules/              # Reusable Terraform modules
-│       ├── vpc/              # VPC and networking
-│       ├── alb/              # Application Load Balancer
-│       ├── acm/              # SSL certificate management
-│       ├── ecs-cluster/      # ECS cluster configuration
-│       ├── ecs-service/      # ECS service and task definition
-│       ├── route53/          # DNS management
-│       └── dynamodb/         # State locking (planned)
+│       ├── vpc/              
+│       ├── alb/              
+│       ├── acm/             
+│       ├── ecs-cluster/     
+│       ├── ecs-service/      
+│       ├── route53/          
+│       └── dynamodb/         
 ├── .github/workflows/         # CI/CD pipeline
 ├── .pre-commit-config.yaml    # Code quality hooks
 ├── deploy-gatus.sh            # Deployment automation
@@ -87,74 +87,36 @@ gatus-local/
 ```
 
 ## Infrastructure Components
-
 ### VPC & Networking
-- **VPC CIDR**: 10.0.0.0/16 with multi-AZ deployment
-- **Public Subnets**: 10.0.1.0/24 (eu-west-1a), 10.0.2.0/24 (eu-west-1b)
-- **Private Subnets**: 10.0.3.0/24 (eu-west-1a), 10.0.4.0/24 (eu-west-1b)
-- **Internet Gateway**: Public internet access
-- **NAT Gateways**: Private subnet internet access with high availability
+- Multi-AZ VPC (10.0.0.0/16) with public & private subnets
+- Internet Gateway for public access, NAT Gateways for private internet access
 
 ### Load Balancer & SSL
-- **Application Load Balancer**: HTTPS termination on port 443
-- **SSL Certificate**: ACM-managed with automatic renewal
-- **HTTP Redirect**: Automatic HTTP to HTTPS redirection
-- **Health Checks**: Application endpoint monitoring on /health
+- Application Load Balancer with HTTPS (ACM-managed certificate)
+- Automatic HTTP→HTTPS redirection & health checks
 
 ### Container Orchestration
-- **ECS Cluster**: Fargate launch type for serverless management
-- **Task Definition**: CPU 256, Memory 512MB with resource constraints
-- **Service Configuration**: Auto-scaling with desired count management
+- ECS Fargate cluster with auto-scaling services
+- Task Definition: 256 CPU, 512MB memory
 
 ### Security Implementation
-- **Security Groups**: Separate groups for ALB and ECS tasks
-- **IAM Roles**: Least privilege access with execution roles
-- **Network Isolation**: Private subnets for application workloads
-- **SSL/TLS**: End-to-end encryption with certificate management (ACM)
+- Separate Security Groups for ALB & ECS
+- IAM Roles with least privilege
+- Private subnets for workloads, end-to-end TLS
 
 ## Environment Strategy
-
-### Multi-Environment Deployment & Environment Isolation
-- **Environment Isolation Development**: Development, Staging and Production environment
-- **Separate State Files**: Each environment maintains independent Terraform state
-- **Consistent Infrastructure**: Identical components with environment-specific variables
-- **Promotion Workflow**: Infrastructure changes progress through environments
-- **State locking**: Prevents others from acquiring the lock and potentially corrupting state
+- Isolated Dev, Staging & Prod environments
+- Separate Terraform state & variables per environment
+- Promotion workflow for changes
 
 ## CI/CD & Automation
+- GitHub Actions: Terraform validation, Checkov security scans, pre-commit hooks
+- Target: Fully automated pipeline (cut deployment from 15min → 2min)
 
-### GitHub Actions Pipeline
-- **Terraform Validation**: Syntax and configuration validation
-- **Security Scanning**: Checkov integration for security best practices
-- **Code Quality**: Pre-commit hooks for formatting and validation
-- **Infrastructure Testing**: Validation before deployment
-
-### Pre-commit Hooks
-- **Terraform Formatting**: Automatic code formatting
-- **Security Validation**: Checkov security scanning
-- **Code Quality**: YAML validation and whitespace checking
-
-### Deployment Automation
-- **Current State**: Manual deployment with deployment scripts
-- **Target State**: Fully automated CI/CD pipeline
-- **Expected Improvement**: 87% reduction in deployment time (15min → 2min)
-
-## Security and Compliance
-
-### Network Security
-- **VPC Isolation**: Private subnets for application workloads
-- **Security Groups**: Layer 3-4 security with port restrictions
-- **SSL/TLS**: End-to-end encryption with certificate management
-
-### Access Control
-- **IAM Roles**: Least privilege access for ECS tasks
-- **Security Groups**: Network-level access control
-- **Certificate Management**: Automated SSL certificate renewal
-
-### Compliance Features
-- **Audit Logging**: Infrastructure change tracking
-- **Security Scanning**: Automated security validation
-- **Documentation**: Comprehensive security and deployment documentation
+## Security & Compliance
+- Private subnet isolation, restricted Security Groups
+- Automated SSL renewal via ACM
+- Audit logging & automated security validation
 
 ## Trade-offs and Design Decisions
 
@@ -164,24 +126,13 @@ I went with Multi-AZ for better uptime and DR even though it costs more. Public 
 **Security and Compliance**:  
 SSL ends at the load balancer which makes cert management easier but means traffic inside isn’t encrypted. Security Groups are more complex but give tighter network isolation. The VPC runs on a custom CIDR across multiple AZs to keep it production-ready and easy to grow later.
 
-**Operational Considerations**:  
-Deployments are manual for now to keep oversight over speed. Docker builds are basic to keep things moving quickly, though they’re not yet optimized.
-
 ## Future Improvements
-
-There are several enhancements that can be made to the project over time to improve scalability, security, maintainability, and overall performance.
 
 **CI/CD Pipeline Enhancement**:  
 Automate Docker builds, pushes, and Terraform runs. Add approvals for prod releases and run security scans in the pipeline.
 
 **Infrastructure Security**:  
 IAM policies can be refined to ensure the principle of least privilege is consistently applied, and CloudTrail integration could provide comprehensive audit logging for compliance purposes.
-
-**Container Optimization**:  
-Use multi-stage builds to shrink images and speed builds. Add vuln scanning and caching, plus better health checks for containers.
-
-**Monitoring and Observability**:  
-Set up central logging like ELK to tie logs together. Add app performance monitoring, automated alerts, and cost tracking.
 
 **Scalability and Resilience**:  
 Add ECS auto-scaling, use blue-green or canary deploys to cut downtime, and add cross-region DR with backups and restores.
