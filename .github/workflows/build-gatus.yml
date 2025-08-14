@@ -59,10 +59,10 @@ jobs:
         
     - name: Output image URI
       run: |
-        echo "✅ Image built and pushed successfully!"
-        echo "📦 Image URI: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
-        echo "🏷️  Latest tag: ${{ env.IMAGE_TAG }}"
-        echo "📅 Timestamp tag: $(date +%Y%m%d-%H%M%S)"
+        echo "Image built and pushed successfully!"
+        echo "Image URI: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+        echo "Latest tag: ${{ env.IMAGE_TAG }}"
+        echo "Timestamp tag: $(date +%Y%m%d-%H%M%S)"
         
   test-build:
     runs-on: ubuntu-latest
@@ -79,10 +79,10 @@ jobs:
       run: |
         cd garus-app
         docker build --platform linux/amd64 -t gatuswebapp:test .
-        echo "✅ Docker build test passed!"
+        echo "Docker build test passed!"
         
     - name: Verify image contents
       run: |
         docker run --rm gatuswebapp:test /app/gatus --version || echo "Version check not available"
         docker run --rm gatuswebapp:test ls -la /app/
-        echo "✅ Image verification completed!"
+        echo " Image verification completed!"
