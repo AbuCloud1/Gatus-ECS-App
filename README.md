@@ -18,7 +18,6 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
   - [Security Implementation](#security-implementation)
 - [Environment Strategy](#environment-strategy)
 - [CI/CD & Automation](#cicd--automation)
-- [🐳 Custom Gatus Build](#custom-gatus-build)
 - [Security and Compliance](#security-and-compliance)
 - [Trade-offs and Design Decisions](#trade-offs-and-design-decisions)
 - [Future Improvements](#future-improvements)
