@@ -18,7 +18,6 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
   - [Security Implementation](#security-implementation)
 - [Environment Strategy](#environment-strategy)
 - [CI/CD & Automation](#cicd--automation)
-- [Security and Compliance](#security-and-compliance)
 - [Trade-offs and Design Decisions](#trade-offs-and-design-decisions)
 - [Future Improvements](#future-improvements)
 
@@ -112,11 +111,6 @@ gatus-local/
 ## CI/CD & Automation
 - GitHub Actions: Terraform validation, Checkov security scans, pre-commit hooks
 - Target: Fully automated pipeline (cut deployment from 15min → 2min)
-
-## Security & Compliance
-- Private subnet isolation, restricted Security Groups
-- Automated SSL renewal via ACM
-- Audit logging & automated security validation
 
 ## Trade-offs and Design Decisions
 
