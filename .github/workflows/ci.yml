@@ -3,8 +3,14 @@ name: CI
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'garus-app/**'
+      - '.github/workflows/build-gatus.yml'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'garus-app/**'
+      - '.github/workflows/build-gatus.yml'
 
 jobs:
   validate:
@@ -28,5 +34,17 @@ jobs:
     - name: Validate Dev Environment
       run: |
         cd terraform/environments/dev
+        terraform init -backend=false
+        terraform validate
+        
+    - name: Validate Staging Environment
+      run: |
+        cd terraform/environments/staging
+        terraform init -backend=false
+        terraform validate
+        
+    - name: Validate Prod Environment
+      run: |
+        cd terraform/environments/prod
         terraform init -backend=false
         terraform validate
