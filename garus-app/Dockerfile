@@ -1,4 +1,5 @@
 # Multi-stage build for Gatus from source
+# Test comment to trigger build workflow
 FROM golang:1.21-alpine AS builder
 
 RUN apk --update add ca-certificates git make
