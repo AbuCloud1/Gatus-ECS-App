@@ -3,6 +3,7 @@
 # Updated: Testing automatic workflow trigger
 # Final test: Improved workflow with ECR repo check
 # OIDC test: Checking if authentication works now
+# Infrastructure test: S3 backend permissions added
 FROM golang:1.24-alpine AS builder
 
 RUN apk --update add ca-certificates git make
