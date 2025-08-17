@@ -3,7 +3,7 @@
 # Updated: Testing automatic workflow trigger
 # Final test: Improved workflow with ECR repo check
 # OIDC test: Checking if authentication works now
-FROM golang:1.21-alpine AS builder
+FROM golang:1.24-alpine AS builder
 
 RUN apk --update add ca-certificates git make
 WORKDIR /app
