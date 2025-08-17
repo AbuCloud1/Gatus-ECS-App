@@ -40,12 +40,25 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
       
+    - name: Check ECR repository exists
+      run: |
+        echo "Checking if ECR repository exists..."
+        aws ecr describe-repositories --repository-names ${{ env.ECR_REPOSITORY }} --region ${{ env.AWS_REGION }} || {
+          echo "ECR repository does not exist. Creating it..."
+          aws ecr create-repository --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ env.AWS_REGION }}
+        }
+        
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         IMAGE_TAG: ${{ env.IMAGE_TAG }}
       run: |
+        echo "Building Docker image..."
+        echo "ECR Registry: $ECR_REGISTRY"
+        echo "ECR Repository: $ECR_REPOSITORY"
+        echo "Image Tag: $IMAGE_TAG"
+        
         # Build the image
         docker build \
           --platform linux/amd64 \
@@ -53,13 +66,18 @@ jobs:
           --tag $ECR_REGISTRY/$ECR_REPOSITORY:$(date +%Y%m%d-%H%M%S) \
           ./garus-app
         
+        echo "Docker build completed successfully!"
+        
         # Push images
+        echo "Pushing images to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$(date +%Y%m%d-%H%M%S)
         
+        echo "Images pushed successfully!"
+        
     - name: Output image URI
       run: |
-        echo "Image built and pushed successfully!"
+        echo "🎉 Image built and pushed successfully!"
         echo "Image URI: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
         echo "Latest tag: ${{ env.IMAGE_TAG }}"
         echo "Timestamp tag: $(date +%Y%m%d-%H%M%S)"
@@ -77,12 +95,14 @@ jobs:
       
     - name: Test Docker build locally
       run: |
+        echo "Testing Docker build locally..."
         cd garus-app
         docker build --platform linux/amd64 -t gatuswebapp:test .
-        echo "Docker build test passed!"
+        echo "✅ Docker build test passed!"
         
     - name: Verify image contents
       run: |
+        echo "Verifying image contents..."
         docker run --rm gatuswebapp:test /app/gatus --version || echo "Version check not available"
         docker run --rm gatuswebapp:test ls -la /app/
-        echo " Image verification completed!"
+        echo "✅ Image verification completed!"
