@@ -4,6 +4,7 @@
 # Final test: Improved workflow with ECR repo check
 # OIDC test: Checking if authentication works now
 # Infrastructure test: S3 backend permissions added
+# ACM test: Fixed nameserver dependency and module ordering
 FROM golang:1.24-alpine AS builder
 
 RUN apk --update add ca-certificates git make
