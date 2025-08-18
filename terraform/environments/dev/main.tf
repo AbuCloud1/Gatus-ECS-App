@@ -14,10 +14,8 @@ module "acm" {
   environment = var.environment
   domain_name = var.domain_name
   subject_alternative_names = ["tm.${var.domain_name}"]
-  zone_id     = data.aws_route53_zone.selected.zone_id
+  zone_id     = "Z01959163GDPGUAO1SV9L"
   force_recreation = true
-  
-  depends_on = [data.aws_route53_zone.selected]
 }
 
 module "albmodule" {
@@ -64,10 +62,6 @@ module "ecsservicemodule" {
 module "dynamodbmodule" {
   source      = "../../modules/dynamodb"
   environment = var.environment
-}
-
-data "aws_route53_zone" "selected" {
-  name = var.domain_name
 }
 
 
