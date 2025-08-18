@@ -6,7 +6,7 @@
 # Infrastructure test: S3 backend permissions added
 # ACM test: Fixed nameserver dependency and module ordering
 # Certificate fix: Force recreation with random suffix and increased timeout
-# Validation fix: Testing ACM validation records creation
+# ACM force recreation: Using account ID to force new certificate
 FROM golang:1.24-alpine AS builder
 
 RUN apk --update add ca-certificates git make

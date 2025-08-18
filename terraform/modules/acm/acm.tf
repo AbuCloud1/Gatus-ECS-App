@@ -9,7 +9,7 @@ resource "aws_acm_certificate" "acm_certificate" {
   }
 
   tags = {
-    Name      = "acm-${var.environment}-${random_id.cert_suffix.hex}"
+    Name      = "acm-${var.environment}-${random_id.cert_suffix.hex}-${data.aws_caller_identity.current.account_id}"
     ManagedBy = "Terraform"
   }
 }
@@ -17,6 +17,8 @@ resource "aws_acm_certificate" "acm_certificate" {
 resource "random_id" "cert_suffix" {
   byte_length = 4
 }
+
+data "aws_caller_identity" "current" {}
 
 resource "aws_route53_record" "acm_route53_validation" {
   for_each = {
