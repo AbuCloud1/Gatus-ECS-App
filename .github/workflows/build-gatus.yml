@@ -40,13 +40,21 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
       
-    - name: Build image
+    - name: Update Go dependencies
+      working-directory: ./garus-app/source
+      run: |
+        go get -u github.com/gofiber/fiber/v2@latest
+        go mod tidy
+        
+    - name: Build and push image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
         aws ecr describe-repositories --repository-names gatuswebapp --region eu-west-1 || aws ecr create-repository --repository-name gatuswebapp --region eu-west-1
         TIMESTAMP=$(date +%Y%m%d-%H%M%S)
         docker build --platform linux/amd64 --tag $ECR_REGISTRY/gatuswebapp:latest --tag $ECR_REGISTRY/gatuswebapp:$TIMESTAMP ./garus-app
+        docker push $ECR_REGISTRY/gatuswebapp:latest
+        docker push $ECR_REGISTRY/gatuswebapp:$TIMESTAMP
         
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
@@ -54,14 +62,6 @@ jobs:
         image-ref: ${{ steps.login-ecr.outputs.registry }}/gatuswebapp:latest
         format: 'table'
         exit-code: '0'
-        
-    - name: Push image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      run: |
-        TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-        docker push $ECR_REGISTRY/gatuswebapp:latest
-        docker push $ECR_REGISTRY/gatuswebapp:$TIMESTAMP
         
   deploy-infrastructure:
     runs-on: ubuntu-latest
