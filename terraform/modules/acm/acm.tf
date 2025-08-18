@@ -34,6 +34,10 @@ resource "aws_route53_record" "acm_route53_validation" {
   type    = each.value.type
   records = [each.value.record]
   ttl     = 60
+
+  lifecycle {
+    ignore_changes = [records]
+  }
 }
 
 resource "aws_acm_certificate_validation" "acm_certificate_validation" {
