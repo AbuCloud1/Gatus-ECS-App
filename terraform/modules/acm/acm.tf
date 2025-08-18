@@ -9,9 +9,13 @@ resource "aws_acm_certificate" "acm_certificate" {
   }
 
   tags = {
-    Name      = "acm-${var.environment}"
+    Name      = "acm-${var.environment}-${random_id.cert_suffix.hex}"
     ManagedBy = "Terraform"
   }
+}
+
+resource "random_id" "cert_suffix" {
+  byte_length = 4
 }
 
 resource "aws_route53_record" "acm_route53_validation" {
@@ -32,7 +36,7 @@ resource "aws_route53_record" "acm_route53_validation" {
 
 resource "aws_acm_certificate_validation" "acm_certificate_validation" {
   timeouts {
-    create = "5m"
+    create = "10m"
   }
   certificate_arn         = aws_acm_certificate.acm_certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.acm_route53_validation : record.fqdn]
