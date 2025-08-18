@@ -9,16 +9,12 @@ module "vpcmodule" {
   subnet_name          = var.subnet_name
 }
 
-data "aws_route53_zone" "selected" {
-  name = var.domain_name
-}
-
 module "acm" {
   source      = "../../modules/acm"
   environment = var.environment
   domain_name = var.domain_name
   subject_alternative_names = ["${var.record_name}.${var.domain_name}"]
-  zone_id     = data.aws_route53_zone.selected.zone_id
+  zone_id     = "Z0813521TQ3ZR6UO90I0"
   force_recreation = true
 }
 
