@@ -8,14 +8,12 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
 ## Quick Links
 
 - [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
 - [Quick Start](#quick-start)
-- [Project Structure](#project-structure)
+- [Project File Structure](#project-file-structure)
 - [Infrastructure Components](#infrastructure-components)
   - [VPC & Networking](#vpc--networking)
   - [Load Balancer & SSL](#load-balancer--ssl)
   - [Container Orchestration](#container-orchestration)
-  - [Security Implementation](#security-implementation)
 - [Environment Strategy](#environment-strategy)
 - [CI/CD & Automation](#cicd--automation)
 - [Trade-offs and Design Decisions](#trade-offs-and-design-decisions)
@@ -25,15 +23,6 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
 
 <img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/1067c524-3f89-46d1-a80e-ea9da3725471" />
 
-## Tech Stack
-
-- **Application**: [Gatus](https://github.com/TwiN/gatus) which is a health monitoring dashboard
-- **Infrastructure**: Modular Terraform setup with remote state stored in S3 and state locking via DynamoDB
-- **Container**: Docker with ECS Fargate
-- **Load Balancer**: AWS Application Load Balancer with SSL termination
-- **Security**: AWS Certificate Manager, Security Groups, VPC isolation
-- **DNS**: AWS Route53 with custom domain management
-- **Networking**: Multi-AZ VPC with public/private subnet architecture
 
 ### Quick Start
 ```bash
@@ -58,20 +47,20 @@ docker push your-ecr-repo:latest
 ```
 
 
-## Project Structure
+## Project File Structure
 
 ```
 gatus-local/
-├── garus-app/                 # Gatus application source
+├── garus-app/                 
 │   ├── Dockerfile            
 │   ├── config.yaml           
 │   └── README.md             
-├── terraform/                 # Infrastructure as Code
-│   ├── environments/         # Environment-specific configs
+├── terraform/                 
+│   ├── environments/         
 │   │   ├── dev/             
 │   │   ├── staging/         
 │   │   └── prod/           
-│   └── modules/              # Reusable Terraform modules
+│   └── modules/              
 │       ├── vpc/              
 │       ├── alb/              
 │       ├── acm/             
@@ -79,38 +68,36 @@ gatus-local/
 │       ├── ecs-service/      
 │       ├── route53/          
 │       └── dynamodb/         
-├── .github/workflows/         # CI/CD pipeline
-├── .pre-commit-config.yaml    # Code quality hooks
-├── deploy-gatus.sh            # Deployment automation
-└── README.md                  # Project documentation
+├── .github/workflows/         
+├── .pre-commit-config.yaml    
+├── deploy-gatus.sh            
+└── README.md                  
 ```
 
 ## Infrastructure Components
 ### VPC & Networking
 - Multi-AZ VPC (10.0.0.0/16) with public & private subnets
 - Internet Gateway for public access, NAT Gateways for private internet access
+<img width="1634" height="581" alt="image" src="https://github.com/user-attachments/assets/bbd1d367-2b9f-48cd-aeca-28f1270e3846" />
 
 ### Load Balancer & SSL
 - Application Load Balancer with HTTPS (ACM-managed certificate)
 - Automatic HTTP→HTTPS redirection & health checks
+<img width="1891" height="610" alt="Screenshot 2025-08-18 at 13 53 03" src="https://github.com/user-attachments/assets/47542430-fc33-4938-81d3-f91cd79cfa5e" />
 
 ### Container Orchestration
 - ECS Fargate cluster with auto-scaling services
-- Task Definition: 256 CPU, 512MB memory
-
-### Security Implementation
-- Separate Security Groups for ALB & ECS
-- IAM Roles with least privilege
-- Private subnets for workloads, end-to-end TLS
 
 ## Environment Strategy
 - Isolated Dev, Staging & Prod environments
 - Separate Terraform state & variables per environment
 - Promotion workflow for changes
+<img width="1297" height="375" alt="image" src="https://github.com/user-attachments/assets/05cde5d0-59fd-4edc-a48f-a25c7401be35" />
+
 
 ## CI/CD & Automation
-- GitHub Actions: Terraform validation, Checkov security scans, pre-commit hooks
-- Target: Fully automated pipeline (cut deployment from 15min → 2min)
+- GitHub Actions: Terraform validation, Triviy, Checkov security scans, pre-commit hooks
+<img width="1108" height="649" alt="Screenshot 2025-08-18 at 13 47 45" src="https://github.com/user-attachments/assets/fc479a5d-d617-475a-80d7-91a274fcc418" />
 
 ## Trade-offs and Design Decisions
 
@@ -121,6 +108,9 @@ I went with Multi-AZ for better uptime and DR even though it costs more. Public 
 SSL ends at the load balancer which makes cert management easier but means traffic inside isn’t encrypted. Security Groups are more complex but give tighter network isolation. The VPC runs on a custom CIDR across multiple AZs to keep it production-ready and easy to grow later.
 
 ## Future Improvements
+
+**Implemented Terraform Workspaces**:  
+The way I set up my Terraformix, I didn't use Terraformix spaces. And Terraformix spaces would have easily alleviated some of the complexity.
 
 **CI/CD Pipeline Enhancement**:  
 Automate Docker builds, pushes, and Terraform runs. Add approvals for prod releases and run security scans in the pipeline.
