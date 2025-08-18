@@ -7,6 +7,17 @@ public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
 private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
 
 environment = "prod"
+domain_name = "easyumrahs.com"
+record_name = "tm"
+family = "prod-gatuswebapp"
+service_name = "prod-gatuswebapp-service"
+container_image = "847025106966.dkr.ecr.eu-west-1.amazonaws.com/gatuswebapp:latest"
+container_name = "prod-gatuswebapp"
+container_port = 8080
+desired_count = 2
+cpu = 512
+memory = 1024
+
 key_name    = "master-key"
 
 instance_type = "t3.micro"
