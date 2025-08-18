@@ -1,58 +1,48 @@
-# Branch Strategy and Deployment Workflow
+# Simple Branch Strategy (No Confusion!)
 
-## Branch Structure
+## Branch Names = Directory Names
 
 ### Main Branch (Production)
 - **Branch**: `main`
-- **Purpose**: Production-ready code
-- **Deployment**: Auto-deploys to production environment
-- **Access**: Protected, requires pull request approval
+- **Directory**: `terraform/environments/prod`
+- **Purpose**: Production environment
+- **Deployment**: Auto-deploys to production
 
-### Develop Branch (Staging)
-- **Branch**: `develop`
-- **Purpose**: Integration and testing
-- **Deployment**: Auto-deploys to dev and staging environments
-- **Access**: Development team can push directly
+### Staging Branch (Staging)
+- **Branch**: `staging`
+- **Directory**: `terraform/environments/staging`
+- **Purpose**: Staging environment
+- **Deployment**: Auto-deploys to staging
 
-### Feature Branches (Development)
-- **Branch**: `feature/*`
-- **Purpose**: Individual feature development
-- **Deployment**: No automatic deployment
-- **Access**: Developers create from develop branch
+### Dev Branch (Development)
+- **Branch**: `dev`
+- **Directory**: `terraform/environments/dev`
+- **Purpose**: Development environment
+- **Deployment**: Auto-deploys to development
 
-## Deployment Workflow
+## Simple Rule
 
-### Development Flow
-1. **Feature Development**: Create feature branch from `develop`
-2. **Code Review**: Merge feature branch to `develop` via pull request
-3. **Staging Deployment**: `develop` branch auto-deploys to dev and staging
-4. **Testing**: Validate in staging environment
-5. **Production Release**: Merge `develop` to `main` via pull request
-6. **Production Deployment**: `main` branch auto-deploys to production
+**Push to `dev` branch = Deploy to dev environment**
+**Push to `staging` branch = Deploy to staging environment**
+**Push to `main` branch = Deploy to production environment**
 
-### Environment Mapping
-- **Dev Environment**: Deploys from `develop` branch
-- **Staging Environment**: Deploys from `develop` branch
-- **Production Environment**: Deploys from `main` branch
+## How to Use
 
-### Branch Protection Rules
-- **Main Branch**: Require pull request reviews
-- **Develop Branch**: Allow direct pushes for development team
-- **Feature Branches**: No restrictions
+### Development Workflow
+1. **Work on `dev` branch** → Deploys to dev environment
+2. **Test in dev** → Make sure everything works
+3. **Push to `staging` branch** → Deploys to staging environment
+4. **Test in staging** → Final validation
+5. **Merge to `main` branch** → Deploys to production environment
 
-## Best Practices
+### Branch Protection
+- **Main branch**: Protected (requires pull request)
+- **Staging branch**: Direct push allowed
+- **Dev branch**: Direct push allowed
 
-### Code Promotion
-- Always promote code through branches: `feature` → `develop` → `main`
-- Never push directly to `main` branch
-- Use pull requests for code reviews
+## No More Confusion!
 
-### Deployment Safety
-- Test in staging before production
-- Use feature flags for risky changes
-- Maintain rollback capabilities
-
-### Branch Naming
-- `feature/descriptive-name` for feature branches
-- `hotfix/issue-description` for urgent fixes
-- `release/version-number` for release preparation
+- **Branch name** = **Directory name** = **Environment name**
+- **3 branches total**: `main`, `staging`, `dev`
+- **3 environments total**: `prod`, `staging`, `dev`
+- **Simple mapping**: Push to branch = Deploy to environment
