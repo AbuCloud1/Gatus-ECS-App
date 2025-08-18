@@ -9,6 +9,16 @@ module "vpcmodule" {
   subnet_name          = var.subnet_name
 }
 
+module "acm" {
+  source      = "../../modules/acm"
+  environment = var.environment
+  domain_name = var.domain_name
+  subject_alternative_names = ["tm.${var.domain_name}"]
+  zone_id     = data.aws_route53_zone.selected.zone_id
+  
+  depends_on = [data.aws_route53_zone.selected]
+}
+
 module "albmodule" {
   source            = "../../modules/alb"
   vpc_id            = module.vpcmodule.vpc_id
@@ -18,12 +28,13 @@ module "albmodule" {
   target_port       = var.container_port
 }
 
-module "acm" {
-  source      = "../../modules/acm"
-  environment = var.environment
-  domain_name = var.domain_name
-  subject_alternative_names = ["tm.${var.domain_name}"]
-  zone_id     = module.route53module.zone_id
+module "route53module" {
+  source       = "../../modules/route53"
+  domain_name  = var.domain_name
+  record_name  = var.record_name
+  alb_dns_name = module.albmodule.alb_dns_name
+  alb_zone_id  = module.albmodule.alb_zone_id
+  environment  = var.environment
 }
 
 module "ecsclustermodule" {
@@ -49,18 +60,13 @@ module "ecsservicemodule" {
   alb_sg_id        = module.albmodule.alb_sg_id
 }
 
-module "route53module" {
-  source       = "../../modules/route53"
-  domain_name  = var.domain_name
-  record_name  = var.record_name
-  alb_dns_name = module.albmodule.alb_dns_name
-  alb_zone_id  = module.albmodule.alb_zone_id
-  environment  = var.environment
-}
-
 module "dynamodbmodule" {
   source      = "../../modules/dynamodb"
   environment = var.environment
+}
+
+data "aws_route53_zone" "selected" {
+  name = var.domain_name
 }
 
 
