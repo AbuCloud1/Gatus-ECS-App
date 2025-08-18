@@ -21,8 +21,7 @@ A production-ready Gatus health monitoring application deployed on AWS using Ter
 
 ## Architecture
 
-<img width="1132" height="795" alt="ecs-aws-proj drawio (2)" src="https://github.com/user-attachments/assets/1067c524-3f89-46d1-a80e-ea9da3725471" />
-
+<img width="1316" height="922" alt="ecs-aws-proj drawio (3)" src="https://github.com/user-attachments/assets/7d459431-5ce5-4893-9c9b-a8a320f22399" />
 
 ### Quick Start
 ```bash
