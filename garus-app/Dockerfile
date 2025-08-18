@@ -7,6 +7,7 @@
 # ACM test: Fixed nameserver dependency and module ordering
 # Certificate fix: Force recreation with random suffix and increased timeout
 # ACM force recreation: Using account ID to force new certificate
+# Final fix: ACM force recreation and DynamoDB graceful handling
 FROM golang:1.24-alpine AS builder
 
 RUN apk --update add ca-certificates git make

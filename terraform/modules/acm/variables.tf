@@ -1,20 +1,26 @@
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
+
 variable "domain_name" {
-  description = "The primary domain name for the ACM certificate"
+  description = "Domain name for the certificate"
   type        = string
 }
 
 variable "subject_alternative_names" {
-  description = "Optional subject alternative names for the certificate"
+  description = "Subject alternative names for the certificate"
   type        = list(string)
   default     = []
 }
 
 variable "zone_id" {
-  description = "The Route 53 hosted zone ID used for DNS validation records"
+  description = "Route53 zone ID for DNS validation"
   type        = string
 }
 
-variable "environment" {
-  description = "Deployment environment (e.g. dev, staging, prod) used for tagging"
-  type        = string
+variable "force_recreation" {
+  description = "Force recreation of the certificate"
+  type        = bool
+  default     = true
 }

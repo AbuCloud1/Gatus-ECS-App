@@ -15,6 +15,7 @@ module "acm" {
   domain_name = var.domain_name
   subject_alternative_names = ["tm.${var.domain_name}"]
   zone_id     = data.aws_route53_zone.selected.zone_id
+  force_recreation = true
   
   depends_on = [data.aws_route53_zone.selected]
 }
